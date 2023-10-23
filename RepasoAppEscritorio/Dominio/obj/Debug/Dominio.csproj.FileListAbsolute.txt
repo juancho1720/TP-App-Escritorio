@@ -1,0 +1,6 @@
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\Dominio\bin\Debug\Dominio.dll
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\Dominio\bin\Debug\Dominio.pdb
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\Dominio\obj\Debug\Dominio.dll
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\Dominio\obj\Debug\Dominio.pdb

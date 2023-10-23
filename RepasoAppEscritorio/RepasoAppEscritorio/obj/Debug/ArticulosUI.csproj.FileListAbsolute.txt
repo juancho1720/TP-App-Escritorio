@@ -1,0 +1,16 @@
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\bin\Debug\RepasoAppEscritorio.exe.config
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\bin\Debug\RepasoAppEscritorio.exe
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\bin\Debug\RepasoAppEscritorio.pdb
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\ArticulosUI.csproj.AssemblyReference.cache
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\RepasoAppEscritorio.frmArticulos.resources
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\RepasoAppEscritorio.Properties.Resources.resources
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\ArticulosUI.csproj.GenerateResource.cache
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\ArticulosUI.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\RepasoAppEscritorio.exe
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\RepasoAppEscritorio.pdb
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\bin\Debug\Dominio.dll
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\bin\Debug\Dominio.pdb
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\ArticulosUI.csproj.CopyComplete
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\bin\Debug\Negocio.dll
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\bin\Debug\Negocio.pdb
+C:\Users\usuario\Desktop\App de escritorio\RepasoAppEscritorio\RepasoAppEscritorio\obj\Debug\RepasoAppEscritorio.frmAlta.resources
