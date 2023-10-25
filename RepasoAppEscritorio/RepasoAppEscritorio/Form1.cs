@@ -25,6 +25,13 @@ namespace RepasoAppEscritorio
 
         private void frmArticulos_Load(object sender, EventArgs e)
         {
+
+            CargarGrilla();
+            
+        }
+
+        private void CargarGrilla()
+        {
             ArticuloNegocio negocio = new ArticuloNegocio();
             ImagenNegocio imagenNegocio = new ImagenNegocio();
             listaArticulos = negocio.Listar();
@@ -36,8 +43,6 @@ namespace RepasoAppEscritorio
             //OCULTAMOS COLUMNAS QUE NO QUEREMOS QUE SALGAN EN LA GRILLA
             dgvArticulos.Columns["Id"].Visible = false;
             dgvArticulos.Columns["Imagen"].Visible = false;
-
-            
         }
 
         //MÉTODO PARA CAMBIAR LA IMAGEN AL SELECCIONAR OTRA FILA
@@ -46,7 +51,6 @@ namespace RepasoAppEscritorio
             //HACEMOS UN CASTEO PORQUE DATABOUND NOS DEVUELVE UN OBJECT PERO NO SABE DE QUE TIPO
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             //PASAMOS LA URL DEL ARTICULO SELECCIONADO AL EVENTO LOAD
-            //cargarImagen(seleccionado.Imagen.ImagenUrl);
             cargarImagen(seleccionado.Imagenes[0].ImagenUrl);
         }
 
@@ -68,6 +72,7 @@ namespace RepasoAppEscritorio
         {
             frmAlta frmAlta = new frmAlta();
             frmAlta.ShowDialog();
+            CargarGrilla();
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
@@ -105,6 +110,38 @@ namespace RepasoAppEscritorio
             }
         }
 
-        
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+            frmAlta frmModificar = new frmAlta(seleccionado);
+            frmModificar.ShowDialog();
+            CargarGrilla();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo seleccionado;
+
+            try
+            {
+                //DAMOS OPCIÓN AL USUARIO DE CONFIRMAR UNA ACCIÓN Y TOMAMOS EL VALOR DE LA RESPUESTA PARA ACTUAR SEGÚN ESTA
+                DialogResult res = MessageBox.Show("¿Eliminar artículo?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (res == DialogResult.Yes)
+                {
+                    seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocio.Eliminar(seleccionado.Id);
+                    MessageBox.Show("Articulo eliminado", "Eliminar");
+                    CargarGrilla();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }

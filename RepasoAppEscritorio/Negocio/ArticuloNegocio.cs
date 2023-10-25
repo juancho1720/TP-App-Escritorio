@@ -47,14 +47,16 @@ namespace Negocio
                     //          TIPO DE DATO | NOMBRE EN LA CONSULTA SQL
                     aux.Id = (int)lector["Id"];
                     aux.Codigo = (string)lector["Codigo"];
-                    aux.Nombre = (string)lector["Nombre"];
+                    if (!(lector["Nombre"] is DBNull))
+                        aux.Nombre = (string)lector["Nombre"];
                     aux.Descirpcion = (string)lector["Descripcion"];
                     //HACER EL OVERRIDE A TOSTRING
                     aux.Marca.Descripcion = (string)lector["Marca"];
                     //HACER EL OVERRIDE A TOSTRING
                     aux.Categoria.Descripcion = (string)lector["Categoria"];
                     //HACER EL OVERRIDE A TOSTRING
-                    aux.Imagen.ImagenUrl = (string)lector["ImagenUrl"];
+                    if (!(lector["ImagenUrl"] is DBNull))
+                        aux.Imagen.ImagenUrl = (string)lector["ImagenUrl"];
                     aux.Imagen.IdArticulo = (int)lector["IdArticulo"];
                     aux.Imagen.Id = (int)lector["IdImagen"];
                     aux.Precio = (decimal)lector["Precio"];
@@ -85,7 +87,6 @@ namespace Negocio
 
             try
             {
-                //datos.SetearConsulta("INSERT INTO ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio)\r\nVALUES('" + aux.Codigo + "', '" + aux.Nombre + "', '" + aux.Descirpcion + "', " + aux.Marca.Id + ", " + aux.Categoria.Id + "," +aux.Precio + ")");
                 datos.SetearConsulta("INSERT INTO ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio)\r\nVALUES(@Codigo,@Nombre,@Descripcion,@IdMarca,@IdCategoria,@Precio)");
                 datos.SetearParametro("@Codigo", aux.Codigo);
                 datos.SetearParametro("@Nombre", aux.Nombre);
@@ -93,6 +94,56 @@ namespace Negocio
                 datos.SetearParametro("@IdMarca", aux.Marca.Id);
                 datos.SetearParametro("@IdCategoria", aux.Categoria.Id);
                 datos.SetearParametro("@Precio", aux.Precio);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void Modificar(Articulo aux)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta("UPDATE ARTICULOS SET Codigo = @codigo, Nombre = @nombre, Descripcion = @desc, IdMarca = @idMarca, IdCategoria = @idCategoria, Precio = @precio\r\nWHERE Id = @id");
+                datos.SetearParametro("@codigo", aux.Codigo);
+                datos.SetearParametro("@nombre", aux.Nombre);
+                datos.SetearParametro("@desc", aux.Descirpcion);
+                datos.SetearParametro("@idMarca", aux.Marca.Id);
+                datos.SetearParametro("@idCategoria", aux.Categoria.Id);
+                datos.SetearParametro("@precio", aux.Precio);
+                datos.SetearParametro("@id", aux.Id);
+
+                datos.EjecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta("DELETE FROM ARTICULOS WHERE Id = @id");
+                datos.SetearParametro("@id", id);
                 datos.EjecutarAccion();
             }
             catch (Exception ex)

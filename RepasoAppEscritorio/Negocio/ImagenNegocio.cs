@@ -65,10 +65,18 @@ namespace Negocio
             }
         }
 
+        public void Modificar(Imagen aux)
+        {
+
+        }
+
         public void CargarListas(List<Articulo> aux)
         {
             List<Imagen> lista = Listar();
 
+
+            try
+            {
             foreach (Articulo articulo in aux)
             {
                 foreach(Imagen img in lista)
@@ -78,6 +86,33 @@ namespace Negocio
                         articulo.Imagenes.Add(img);
                     }
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void CargarLista(Articulo aux)
+        {
+            List<Imagen> lista = Listar();
+
+            try
+            {
+                foreach (Imagen img in lista)
+                {
+                    if(img.IdArticulo == aux.Id)
+                    {
+                        aux.Imagenes.Add(img);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
     }

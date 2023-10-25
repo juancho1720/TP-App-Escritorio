@@ -15,9 +15,18 @@ namespace RepasoAppEscritorio
 {
     public partial class frmAlta : Form
     {
+        private Articulo articulo = null;
+
         public frmAlta()
         {
             InitializeComponent();
+        }
+
+        public frmAlta(Articulo seleccionado)
+        {
+            InitializeComponent();
+            this.articulo = seleccionado;
+            Text = "Modificar artículo";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -27,29 +36,47 @@ namespace RepasoAppEscritorio
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Articulo aux = new Articulo();
-            Imagen imagen = new Imagen();
+            
+            if(articulo==null)
+                articulo = new Articulo();
+
+            articulo.Imagenes = new List<Imagen>();
+            articulo.Imagen = new Imagen();
             ArticuloNegocio negocio = new ArticuloNegocio();
             ImagenNegocio imagenNegocio = new ImagenNegocio();
 
             try
             {
-                aux.Codigo = txtCodigo.Text;
-                aux.Nombre = txtNombre.Text;
-                aux.Descirpcion = txtDescripcion.Text;
+                articulo.Codigo = txtCodigo.Text;
+                articulo.Nombre = txtNombre.Text;
+                articulo.Descirpcion = txtDescripcion.Text;
+                articulo.Imagen.ImagenUrl = txtImagen.Text;
+                imagenNegocio.CargarLista(articulo);
                 //LOS VALORES DE LOS COMBOBOX SE CASTEAN
-                aux.Categoria = (Categoria)cboCategoria.SelectedItem;
-                aux.Marca = (Marca)cboMarca.SelectedItem;
-                aux.Precio = decimal.Parse(txtPrecio.Text);
+                articulo.Categoria = (Categoria)cboCategoria.SelectedItem;
+                articulo.Marca = (Marca)cboMarca.SelectedItem;
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
 
-                negocio.Agregar(aux);
+                if(articulo.Id == 0)
+                {
+                negocio.Agregar(articulo);
 
-                imagen.IdArticulo = negocio.CapturarId(txtCodigo.Text);
-                imagen.ImagenUrl = txtImagen.Text;
-                aux.Imagenes.Add(imagen);
+                articulo.Imagen.IdArticulo = negocio.CapturarId(txtCodigo.Text);
+                articulo.Imagen.ImagenUrl = txtImagen.Text;
+                articulo.Imagenes.Add(articulo.Imagen);
 
-                imagenNegocio.Agregar(imagen);
-                MessageBox.Show("Articulo agregado");
+                imagenNegocio.Agregar(articulo.Imagen);
+                MessageBox.Show("Artículo agregado");
+                }
+                else
+                {
+                    negocio.Modificar(articulo);
+
+                   
+                    //imagenNegocio.Modificar(articulo.Imagen);
+                    MessageBox.Show("Artículo modificado");
+                }
+
                 Close();
             }
             catch (Exception ex)
@@ -67,12 +94,47 @@ namespace RepasoAppEscritorio
             try
             {
                 cboCategoria.DataSource = categoriaNegocio.Listar();
+                cboCategoria.ValueMember = "Id";
+                cboCategoria.DisplayMember = "Descripcion";
                 cboMarca.DataSource = marcaNegocio.Listar();
+                cboMarca.ValueMember = "Id";
+                cboMarca.DisplayMember = "Descripcion";
+
+                if (articulo != null)
+                {
+                    txtCodigo.Text = articulo.Codigo;
+                    txtNombre.Text = articulo.Nombre;
+                    txtDescripcion.Text = articulo.Descirpcion;
+                    cboMarca.SelectedValue = articulo.Marca.Id;
+                    cboCategoria.SelectedValue = articulo.Categoria.Id;
+                    txtImagen.Text = articulo.Imagen.ImagenUrl;
+                    txtPrecio.Text = articulo.Precio.ToString();
+                    cargarImagen(txtImagen.Text);
+                }
+
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void txtImagen_Leave(object sender, EventArgs e)
+        {
+            cargarImagen(txtImagen.Text);
+        }
+
+        private void cargarImagen(string imagen)
+        {
+            try
+            {
+                pbxAlta.Load(imagen);
+            }
+            catch (Exception)
+            {
+
+                pbxAlta.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaqh0REQrSROCBa9Q9u79-LWiM8TRPAUCV4w&usqp=CAU");
             }
         }
     }
